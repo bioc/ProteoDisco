@@ -101,11 +101,11 @@ importGenomicVariants <- function(ProteoDiscography, files, samplenames = NULL, 
   GenomeInfoDb::seqlevelsStyle(data) <- 'UCSC'
   
   # Fix weird genome names.
-  GenomeInfoDb::genome(data) <- gsub('\"', '', GenomeInfoDb::genome(data))
+  Seqinfo::genome(data) <- gsub('\"', '', Seqinfo::genome(data))
   
   # Check if all mutations lie upon given chromosomes.
-  checkChromosomes <- GenomeInfoDb::seqlevelsInUse(data) %in% GenomeInfoDb::seqlevels(ProteoDiscography@genomeSeqs)
-  if(!all(checkChromosomes)) stop('There are mutations on chromosomes which were not given as genomic sequences: ', base::paste(base::unique(base::as.character(GenomeInfoDb::seqnames(data)[!checkChromosomes])), collapse = ', '))
+  checkChromosomes <- Seqinfo::seqlevelsInUse(data) %in% Seqinfo::seqlevels(ProteoDiscography@genomeSeqs)
+  if(!all(checkChromosomes)) stop('There are mutations on chromosomes which were not given as genomic sequences: ', base::paste(base::unique(base::as.character(Seqinfo::seqnames(data)[!checkChromosomes])), collapse = ', '))
   
   # Check correct REF basesas we use these as later anchors.
   if(any(!grepl('[ATCGN]', VariantAnnotation::ref(data)))) stop(base::sprintf('There are non-[ATCGN] bases in your reference nucleotides within file: %s', file))
@@ -121,7 +121,7 @@ importGenomicVariants <- function(ProteoDiscography, files, samplenames = NULL, 
   data$sample <- base::factor(samplename)
   
   # Fix sorting.
-  data <- GenomeInfoDb::sortSeqlevels(data)
+  data <- Seqinfo::sortSeqlevels(data)
   data <- BiocGenerics::sort(data)
   
   if(performAnchorCheck){

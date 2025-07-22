@@ -28,12 +28,12 @@
   # Overlap the reference anchors -------------------------------------------
 
   # Per chromosome, check the reference position and base.
-  checkRef <- base::do.call(base::rbind, base::lapply(GenomeInfoDb::seqlevelsInUse(mutations), function(chr){
+  checkRef <- base::do.call(base::rbind, base::lapply(Seqinfo::seqlevelsInUse(mutations), function(chr){
 
     ParallelLogger::logTrace(sprintf('ProteoDisco - Checking sanity of reference anchors in %s (using %s threads)', chr, threads))
 
     g <- genomeSeqs[[chr]]
-    mutsChr <- mutations[GenomeInfoDb::seqnames(mutations) == chr,]
+    mutsChr <- mutations[Seqinfo::seqnames(mutations) == chr,]
 
     base::do.call(base::rbind, BiocParallel::bplapply(base::seq_along(mutsChr), function(i){
       mut <- mutsChr[i]
@@ -51,7 +51,7 @@
     message <- base::sprintf(
       '%s supplied reference bases and positions did not match with the given reference genome (%s) for %s. %s',
       base::length(notCorrect),
-      base::unique(GenomeInfoDb::genome(genomeSeqs)),
+      base::unique(Seqinfo::genome(genomeSeqs)),
       base::unique(notCorrect$sample),
       base::ifelse(ignoreNonMatch, 'Will remove these records and continue.', 'You can remove these elements with ignoreNonMatch = TRUE to continue but it is advised to check these positions.'))
 

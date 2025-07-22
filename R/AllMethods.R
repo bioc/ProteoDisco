@@ -74,8 +74,8 @@ summary.ProteoDiscography <- function(object, verbose = TRUE, ...){
 
   # Information on the Discography samples.
   if(verbose) cat(sprintf('This ProteoDiscography was initialized on %s for %s (%s).\n',
-                          object@metadata$CreatedOn, unique(GenomeInfoDb::organism(object@TxDb)),
-                          unique(GenomeInfoDb::genome(object@genomeSeqs))))
+                          object@metadata$CreatedOn, unique(BiocGenerics::organism(object@TxDb)),
+                          unique(Seqinfo::genome(object@genomeSeqs))))
   if(verbose) cat(sprintf('The underlying TxDb contains %s transcripts with %s exons.\n',
                           meta.txdb[meta.txdb$name == 'transcript_nrow',]$value,
                           meta.txdb[meta.txdb$name == 'exon_nrow',]$value))

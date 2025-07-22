@@ -118,7 +118,7 @@ generateJunctionModels <- function(ProteoDiscography, maxDistance = 150, maxCryp
     if(any(is.na(junction.GR$cds_id))) junction.GR[is.na(junction.GR$cds_id),]$cdsType <- 'None'
 
     # Retrieve annotation of assigned CDS.
-    junction.GR[!is.na(junction.GR$cds_id)]$chrDerivedCDS <- GenomeInfoDb::seqnames(junction.GR[!is.na(junction.GR$cds_id)])
+    junction.GR[!is.na(junction.GR$cds_id)]$chrDerivedCDS <- Seqinfo::seqnames(junction.GR[!is.na(junction.GR$cds_id)])
     junction.GR[!is.na(junction.GR$cds_id)]$startAssignedCDS <- GenomicRanges::start(TxDb.CDS[match(junction.GR[!is.na(junction.GR$cds_id)]$cds_id, TxDb.CDS$cds_id)])
     junction.GR[!is.na(junction.GR$cds_id)]$endAssignedCDS <- GenomicRanges::end(TxDb.CDS[match(junction.GR[!is.na(junction.GR$cds_id)]$cds_id, TxDb.CDS$cds_id)])
     junction.GR[!is.na(junction.GR$cds_id)]$strandDerivedCDS <- GenomicRanges::strand(TxDb.CDS[match(junction.GR[!is.na(junction.GR$cds_id)]$cds_id, TxDb.CDS$cds_id)])

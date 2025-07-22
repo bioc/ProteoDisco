@@ -485,7 +485,7 @@ incorporateGenomicVariants <- function(ProteoDiscography, aggregateSamples = FAL
 
     # Add UTR to mut. TX-sequences (if UTR was present).
     Tx.WithoutUTR.Gr <- GenomicRanges::GRanges(
-      seqnames = base::as.character(GenomeInfoDb::seqnames(Tx.WithoutUTR)),
+      seqnames = base::as.character(Seqinfo::seqnames(Tx.WithoutUTR)),
       ranges = IRanges::IRanges(
         start = ifelse(BiocGenerics::strand(Tx.WithoutUTR) == '+', BiocGenerics::end(Tx.WithoutUTR) + 1, BiocGenerics::start(Tx.WithoutUTR) - 99),
         end = ifelse(BiocGenerics::strand(Tx.WithoutUTR) == '+', BiocGenerics::end(Tx.WithoutUTR) + 99, BiocGenerics::start(Tx.WithoutUTR) - 1)

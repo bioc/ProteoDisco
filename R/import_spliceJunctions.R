@@ -124,8 +124,8 @@ importSpliceJunctions <- function(ProteoDiscography, inputSpliceJunctions, isTop
       data.DF <- base::data.frame(
         sample = sample,
         identifier = NA,
-        junctionA = base::sprintf('%s:%s:%s', as.character(GenomeInfoDb::seqnames(data.File)), GenomicRanges::start(data.File), GenomicRanges::strand(data.File)),
-        junctionB = base::sprintf('%s:%s:%s', as.character(GenomeInfoDb::seqnames(data.File)), GenomicRanges::end(data.File), GenomicRanges::strand(data.File))
+        junctionA = base::sprintf('%s:%s:%s', as.character(Seqinfo::seqnames(data.File)), GenomicRanges::start(data.File), GenomicRanges::strand(data.File)),
+        junctionB = base::sprintf('%s:%s:%s', as.character(Seqinfo::seqnames(data.File)), GenomicRanges::end(data.File), GenomicRanges::strand(data.File))
       ) %>% tibble::as_tibble()
 
       if(!is.null(data.File$name)) data.DF$identifier <- data.File$name

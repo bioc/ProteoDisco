@@ -41,7 +41,7 @@ generateProteoDiscography <- function(TxDb, genomeSeqs, useOnlySharedSeqlevels =
   if(useOnlySharedSeqlevels & methods::is(genomeSeqs, 'DNAStringSet')){
     ParallelLogger::logTrace('ProteoDisco - Subsetting on shared seqlevels.')
     
-    genomeSeqs <- genomeSeqs[names(genomeSeqs) %in% GenomeInfoDb::seqlevels(TxDb)]
+    genomeSeqs <- genomeSeqs[names(genomeSeqs) %in% Seqinfo::seqlevels(TxDb)]
     TxDb <- GenomeInfoDb::keepSeqlevels(TxDb, names(genomeSeqs), pruning.mode = 'coarse')
     
   }
@@ -55,8 +55,8 @@ generateProteoDiscography <- function(TxDb, genomeSeqs, useOnlySharedSeqlevels =
   
   # Check for common seqlevels; ignore if a BSgenome was given.
   if(methods::is(genomeSeqs, 'DNAStringSet') & useOnlySharedSeqlevels){
-    if(useOnlySharedSeqlevels & !all(GenomeInfoDb::seqlevels(TxDb) %in% names(genomeSeqs))) stop(sprintf('The given TxDb and genomeSeqs have incompatible seqlevels: %s', paste(GenomeInfoDb::seqlevels(TxDb)[!GenomeInfoDb::seqlevels(TxDb) %in% names(genomeSeqs)], collapse = ', ')))
-    if(!useOnlySharedSeqlevels & !all(GenomeInfoDb::seqlevels(TxDb) %in% names(genomeSeqs))) warning(sprintf('The given TxDb and genomeSeqs have incompatible seqlevels but this will be ignored: %s', paste(GenomeInfoDb::seqlevels(TxDb)[!GenomeInfoDb::seqlevels(TxDb) %in% names(genomeSeqs)], collapse = ', ')))
+    if(useOnlySharedSeqlevels & !all(Seqinfo::seqlevels(TxDb) %in% names(genomeSeqs))) stop(sprintf('The given TxDb and genomeSeqs have incompatible seqlevels: %s', paste(Seqinfo::seqlevels(TxDb)[!Seqinfo::seqlevels(TxDb) %in% names(genomeSeqs)], collapse = ', ')))
+    if(!useOnlySharedSeqlevels & !all(Seqinfo::seqlevels(TxDb) %in% names(genomeSeqs))) warning(sprintf('The given TxDb and genomeSeqs have incompatible seqlevels but this will be ignored: %s', paste(Seqinfo::seqlevels(TxDb)[!Seqinfo::seqlevels(TxDb) %in% names(genomeSeqs)], collapse = ', ')))
   }
   
   # Create new ProteoDiscography -----------------------------------------------------
